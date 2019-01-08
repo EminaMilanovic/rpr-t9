@@ -1,15 +1,21 @@
 package ba.unsa.etf.rpr;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class GeografijaDAO {
+
     private static GeografijaDAO  instance=null;
-    private Connection conn ;
+    private static Connection conn ;
+
     private GeografijaDAO() throws SQLException {
+        File db = new File("baza.db");
+        boolean ima= db.exists();
         String url="jdbc:sqlite:baza.db";
-        Connection conn =DriverManager.getConnection(url);
+        conn =DriverManager.getConnection(url);
         Statement stmt = conn.createStatement();
+        if(!ima) initializeDatabase();
     }
     private static void initialize() throws SQLException {
         if(instance==null) {
@@ -62,9 +68,34 @@ public class GeografijaDAO {
                 "values (5,'Graz',280200,3);\n";
         Statement stmt = conn.createStatement();
         ResultSet result = stmt.executeQuery(kreiranjeBaze);
+        Grad paris = new Grad(1, "Pariz", 2206488, null);
+        Grad london = new Grad(2, "London", 8825000, null);
+        Grad betsch = new Grad(3, "Beč", 1899055, null);
+        Grad manch = new Grad(5, "Manchester", 545500, null);
+        Grad graz = new Grad(6, "Graz", 280200, null);
+
+        Drzava fran = new Drzava(1, "Francuska", paris);
+        Drzava vBrit = new Drzava(2, "Velika Britanija", london);
+        Drzava aut = new Drzava(3, "Austrija", betsch);
+
+        paris.setDrzava(fran);
+        london.setDrzava(vBrit);
+        betsch.setDrzava(aut);
+        manch.setDrzava(vBrit);
+        graz.setDrzava(aut);
+
+        dodajGrad(paris);
+        dodajGrad(london);
+        dodajGrad(betsch);
+        dodajGrad(manch);
+        dodajGrad(graz);
+        dodajDrzavu(fran);
+        dodajDrzavu(vBrit);
+        dodajDrzavu(aut);
     }
     public static void removeInstance() {
         instance=null;
+        if(conn!=null) conn.close();
     }
 
     public static GeografijaDAO getInstance() throws SQLException {
@@ -75,6 +106,10 @@ public class GeografijaDAO {
     }
 
     public ArrayList<Grad> gradovi() {
+        ArrayList<Grad> gradovi=new ArrayList<>();
+        ArrayList<Drzava> drzave=new ArrayList<>();
+        String upit_gradovi="";
+        stmt.
     }
 
     public Grad glavniGrad(String bosna_i_hercegovina) {
