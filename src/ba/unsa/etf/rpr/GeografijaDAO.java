@@ -28,5 +28,6 @@ public class GeografijaDAO {
     }
 
     public void izmijeniGrad(Grad bech) {
+        kkkkkk
     }
 }
