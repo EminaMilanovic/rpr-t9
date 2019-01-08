@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr;
 
 import java.util.ArrayList;
 
-public class GeografijaDAO {
+public class GeografijaDAO {/*
     public static void removeInstance() {
     }
 
@@ -28,6 +28,6 @@ public class GeografijaDAO {
     }
 
     public void izmijeniGrad(Grad bech) {
-        kkkkkk
-    }
+
+    }*/
 }

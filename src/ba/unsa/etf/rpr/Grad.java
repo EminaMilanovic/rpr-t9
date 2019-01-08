@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr;
 
-public class Grad {
+public class Grad {/*
     public String getNaziv() {
     }
 
@@ -17,5 +17,5 @@ public class Grad {
     }
 
     public int getBrojStanovnika() {
-    }
+    }*/
 }

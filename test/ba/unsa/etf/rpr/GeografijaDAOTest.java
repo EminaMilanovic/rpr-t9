@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GeografijaDAOTest {
-
+/*
     @Test
     void regenerateFile() {
         GeografijaDAO.removeInstance();
@@ -118,4 +118,5 @@ class GeografijaDAOTest {
         ArrayList<Grad> gradovi = dao.gradovi();
         assertEquals("Vienna", gradovi.get(2).getNaziv());
     }
+    */
 }
