@@ -1,10 +1,12 @@
 package ba.unsa.etf.rpr;
 
 public class Drzava {
+
+
     private int id;
     private String naziv;
     private Grad glavniGrad;
-    private int counter=0;
+
 
     public Drzava(){}
     public Drzava(int id, String naziv, Grad glavni_grad) {
@@ -13,7 +15,13 @@ public class Drzava {
         this.naziv = naziv;
         this.glavniGrad = glavni_grad;
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public Drzava(Drzava nadjiDrzavu) {
 
     }

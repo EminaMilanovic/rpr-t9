@@ -3,6 +3,8 @@ package ba.unsa.etf.rpr;
 import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class GeografijaDAO {
 
@@ -80,6 +82,7 @@ public class GeografijaDAO {
 
 
         }
+        Collections.sort(gradovi);
         return gradovi;
 
     }
@@ -126,7 +129,18 @@ public class GeografijaDAO {
 
     }
 
-    public void dodajGrad(Grad grad) {
+    public void dodajGrad(Grad grad) throws SQLException {
+        int id=1;
+        Statement st=conn.createStatement();
+        ResultSet result=st.executeQuery("select count(*) from grad;");
+        if(result.next()) id=result.getInt(1);
+        id++;
+        PreparedStatement stmt=conn.prepareStatement("insert into grad values(?,?,?,?);");
+        stmt.setInt(1,id);
+        stmt.setString(2,grad.getNaziv());
+        stmt.setInt(3,grad.getBrojStanovnika());
+        stmt.setInt(4,grad.getDrzava().getId());
+        stmt.executeUpdate();
     }
 
     public void dodajDrzavu(Drzava bih) {
