@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GeografijaDAOTest {
 
     @Test
-    void regenerateFile() {
+    void regenerateFile() throws SQLException {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
@@ -22,7 +23,7 @@ class GeografijaDAOTest {
     }
 
     @Test
-    void glavniGrad() {
+    void glavniGrad() throws SQLException {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
@@ -34,7 +35,7 @@ class GeografijaDAOTest {
     }
 
     @Test
-    void obrisiDrzavu() {
+    void obrisiDrzavu() throws SQLException {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
@@ -47,7 +48,7 @@ class GeografijaDAOTest {
     }
 
     @Test
-    void obrisiDrzavu2() {
+    void obrisiDrzavu2() throws SQLException {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
@@ -64,7 +65,7 @@ class GeografijaDAOTest {
     }
 
     @Test
-    void dodajGrad() {
+    void dodajGrad() throws SQLException {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
@@ -82,7 +83,7 @@ class GeografijaDAOTest {
     }
 
     @Test
-    void dodajDrzavu() {
+    void dodajDrzavu() throws SQLException {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
@@ -106,7 +107,7 @@ class GeografijaDAOTest {
     }
 
     @Test
-    void izmijeniGrad() {
+    void izmijeniGrad() throws SQLException {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
