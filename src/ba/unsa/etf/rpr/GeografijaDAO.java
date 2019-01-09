@@ -25,10 +25,91 @@ public class GeografijaDAO {
     }
     private void initializeDatabase() throws SQLException {
 
-        String kreiranjeBaze="create table grad(id int primary key,naziv varchar, broj_stanovnika int);"
-        ;
+        String kreiranjeBaze="create table grad(\n" +
+                "                   id int primary key,\n" +
+                "                   naziv varchar,\n" +
+                "                   broj_stanovnika int\n" +
+                ");\n" +
+                "create table drzava(\n" +
+                "                     id int primary key,\n" +
+                "                     naziv varchar,\n" +
+                "                     glavni_grad int references grad(id)\n" +
+                ");\n" +
+                "alter table  grad\n" +
+                "  add column drzava int references drzava(id);\n" +
+                "/*\n" +
+                "        String expected = \"London (Velika Britanija) - 8825000\\n\" +\n" +
+                "                \"Pariz (Francuska) - 2206488\\n\" +\n" +
+                "                \"Beč (Austrija) - 1899055\\n\" +\n" +
+                "                \"Manchester (Velika Britanija) - 545500\\n\" +\n" +
+                "                \"Graz (Austrija) - 280200\\n\n" +
+                "*/\n" +
+                "insert into grad\n" +
+                "values(1,'London',8825000,1);\n" +
+                "\n" +
+                "insert into drzava\n" +
+                "values(1,'Velika Britanija',1);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (2,'Pariz',2206488,2);\n" +
+                "\n" +
+                "insert into drzava\n" +
+                "values (2,'Francuska',2);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (3,'Beč',1899055,3);\n" +
+                "\n" +
+                "insert into drzava\n" +
+                "values (3,'Austrija',3);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (4,'Manchester',545500,1);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (5,'Graz',280200,3);\ncreate table grad(\n" +
+                "                   id int primary key,\n" +
+                "                   naziv varchar,\n" +
+                "                   broj_stanovnika int\n" +
+                ");\n" +
+                "create table drzava(\n" +
+                "                     id int primary key,\n" +
+                "                     naziv varchar,\n" +
+                "                     glavni_grad int references grad(id)\n" +
+                ");\n" +
+                "alter table  grad\n" +
+                "  add column drzava int references drzava(id);\n" +
+                "/*\n" +
+                "        String expected = \"London (Velika Britanija) - 8825000\\n\" +\n" +
+                "                \"Pariz (Francuska) - 2206488\\n\" +\n" +
+                "                \"Beč (Austrija) - 1899055\\n\" +\n" +
+                "                \"Manchester (Velika Britanija) - 545500\\n\" +\n" +
+                "                \"Graz (Austrija) - 280200\\n\n" +
+                "*/\n" +
+                "insert into grad\n" +
+                "values(1,'London',8825000,1);\n" +
+                "\n" +
+                "insert into drzava\n" +
+                "values(1,'Velika Britanija',1);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (2,'Pariz',2206488,2);\n" +
+                "\n" +
+                "insert into drzava\n" +
+                "values (2,'Francuska',2);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (3,'Beč',1899055,3);\n" +
+                "\n" +
+                "insert into drzava\n" +
+                "values (3,'Austrija',3);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (4,'Manchester',545500,1);\n" +
+                "\n" +
+                "insert into grad\n" +
+                "values (5,'Graz',280200,3);\n";
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery(kreiranjeBaze);
+        ResultSet result=stmt.executeQuery(kreiranjeBaze);
 
     }
     public static void removeInstance() throws SQLException {
