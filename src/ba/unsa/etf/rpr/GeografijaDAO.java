@@ -25,30 +25,30 @@ public class GeografijaDAO {
     }
     private void initializeDatabase() throws SQLException {
 
-        String kreiranjeGrada=("create table grad( id int primary key, naziv varchar, broj_stanovnika int");
+        String kreiranjeGrada=("create table grad( id int primary key, naziv varchar, broj_stanovnika int)");
         String kreiranjeDrzave=("create table drzava(id int primary key,  naziv varchar, glavni_grad int references grad(id));");
         String alter=("alter table  grad  add column drzava int references drzava(id);");
         String insert1=("insert into grad values(1,'London',8825000,1);");
-        String insert2=("insert into drzavavalues(1,'Velika Britanija',1);");
+        String insert2=("insert into drzava values(1,'Velika Britanija',1);");
         String insert3=("insert into grad values (2,'Pariz',2206488,2);");
         String insert4=("insert into drzava values (2,'Francuska',2);");
-        String insert5=("insert into gradvalues (3,'Beč',1899055,3);");
-        String insert6=("insert into drzavavalues (3,'Austrija',3);");
-        String insert7=("insert into gradvalues (4,'Manchester',545500,1);");
+        String insert5=("insert into grad values (3,'Beč',1899055,3);");
+        String insert6=("insert into drzava values (3,'Austrija',3);");
+        String insert7=("insert into grad values (4,'Manchester',545500,1);");
         String insert8=("insert into grad values (5,'Graz',280200,3);");
 
         Statement stmt = conn.createStatement();
-        stmt.executeQuery(kreiranjeGrada);
-        stmt.executeQuery(kreiranjeDrzave);
-        stmt.executeQuery(alter);
-        stmt.executeQuery(insert1);
-        stmt.executeQuery(insert2);
-        stmt.executeQuery(insert3);
-        stmt.executeQuery(insert4);
-        stmt.executeQuery(insert5);
-        stmt.executeQuery(insert6);
-        stmt.executeQuery(insert7);
-        stmt.executeQuery(insert8);
+        stmt.executeUpdate(kreiranjeGrada);
+        stmt.executeUpdate(kreiranjeDrzave);
+        stmt.executeUpdate(alter);
+        stmt.executeUpdate(insert1);
+        stmt.executeUpdate(insert2);
+        stmt.executeUpdate(insert3);
+        stmt.executeUpdate(insert4);
+        stmt.executeUpdate(insert5);
+        stmt.executeUpdate(insert6);
+        stmt.executeUpdate(insert7);
+        stmt.executeUpdate(insert8);
     }
     public static void removeInstance() throws SQLException {
         instance=null;
@@ -72,8 +72,8 @@ public class GeografijaDAO {
             String naziv=result.getString(2);
             int broj_stanovnika=result.getInt(3);
             Grad grad=new Grad(id,naziv,broj_stanovnika,null);
-            id=result.getInt(4);
-            naziv=result.getString(5);
+            id=result.getInt(5);
+            naziv=result.getString(6);
             Drzava drzava=new Drzava(id,naziv,grad);
             grad.setDrzava(drzava);
             gradovi.add(grad);
@@ -102,12 +102,13 @@ public class GeografijaDAO {
     }
 
     public void obrisiDrzavu(String naziv) throws SQLException {
-        Drzava d2= new Drzava(nadjiDrzavu(naziv));
-        if(d2==null) return;
-        PreparedStatement stmt=conn.prepareStatement("delete from drzava where naziv like ?;");
+        Drzava d2= nadjiDrzavu(naziv);
+        if(d2!=null) {
+            PreparedStatement stmt = conn.prepareStatement("delete from drzava where naziv like ?;");
 
-        stmt.setString(1,naziv);
-        ResultSet result=stmt.executeQuery();
+            stmt.setString(1, naziv);
+            stmt.executeUpdate();
+        }
     }
 
     public Drzava nadjiDrzavu(String naziv) throws SQLException {
