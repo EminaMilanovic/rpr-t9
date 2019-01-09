@@ -14,6 +14,9 @@ public class Drzava {
         this.glavniGrad = glavni_grad;
     }
 
+    public Drzava(Drzava nadjiDrzavu) {
+
+    }
 
 
     public String getNaziv() {

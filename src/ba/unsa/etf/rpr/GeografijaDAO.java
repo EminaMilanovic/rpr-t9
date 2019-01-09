@@ -15,7 +15,7 @@ public class GeografijaDAO {
         String url="jdbc:sqlite:baza.db";
         conn =DriverManager.getConnection(url);
         Statement stmt = conn.createStatement();
-        if(ima) initializeDatabase();
+        if(!ima) initializeDatabase();
     }
     private static void initialize() throws SQLException {
         if(instance==null) {
@@ -66,7 +66,7 @@ public class GeografijaDAO {
     }
 
     public Grad glavniGrad(String drzava) throws SQLException {
-        PreparedStatement stmt=conn.prepareStatement("select g.*,d* from grad g,drzava d where g.id=d.glavni_grad and d.naziv = ?;");
+        PreparedStatement stmt=conn.prepareStatement("select g.*,d.* from grad g,drzava d where g.id=d.glavni_grad and d.naziv = ?;");
         stmt.setString(1,drzava);
         ResultSet result=stmt.executeQuery();
         if(!result.next()) return null;
@@ -83,7 +83,10 @@ public class GeografijaDAO {
     }
 
     public void obrisiDrzavu(String naziv) throws SQLException {
+        Drzava d2= new Drzava(nadjiDrzavu(naziv));
+        if(d2==null) return;
         PreparedStatement stmt=conn.prepareStatement("delete from drzava where naziv like ?;");
+
         stmt.setString(1,naziv);
         ResultSet result=stmt.executeQuery();
     }

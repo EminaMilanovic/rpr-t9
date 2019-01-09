@@ -9,7 +9,7 @@ public class Main {
     private static  String upit = "select g.*,d.naziv from grad g,drzava d where g.drzava=d.id;";
     public static void main(String[] args) {
 
-        // System.out.println("Gradovi su:\n" + ispisiGradove());
+         System.out.println("Gradovi su:\n" + ispisiGradove());
 
     }
     public static String ispisiGradove() {
