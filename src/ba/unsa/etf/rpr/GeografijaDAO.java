@@ -98,7 +98,7 @@ public class GeografijaDAO {
             int broj_stanovnika=result.getInt(3);
             Grad grad=new Grad(id,naziv,broj_stanovnika,null);
             id=result.getInt(4);
-            naziv=result.getString(5);
+            naziv=result.getString(6);
             Drzava dr=new Drzava(id,naziv,grad);
             grad.setDrzava(dr);
             return grad;
@@ -143,10 +143,38 @@ public class GeografijaDAO {
         stmt.executeUpdate();
     }
 
-    public void dodajDrzavu(Drzava bih) {
+    public void dodajDrzavu(Drzava drzava) throws SQLException {
+        int id1=1;
+        Statement st=conn.createStatement();
+        ResultSet result=st.executeQuery("select count(*) from grad;");
+        if(result.next()) id1=result.getInt(1);
+        id1++;
+        PreparedStatement stmt=conn.prepareStatement("insert into grad values(?,?,?,?)");
+        stmt.setInt(1,id1);
+        stmt.setString(2,drzava.getGlavniGrad().getNaziv());
+        stmt.setInt(3,drzava.getGlavniGrad().getBrojStanovnika());
+        Statement st2=conn.createStatement();
+        ResultSet result2=st2.executeQuery("select count(*) from drzava;");
+        int id2=1;
+        if(result2.next()) id2=result2.getInt(1);
+        id2++;
+        stmt.setInt(4,id2);
+        stmt.executeUpdate();
+        PreparedStatement ps=conn.prepareStatement("insert into drzava values(?,?,?)");
+        ps.setInt(1,id2);
+        ps.setString(2,drzava.getNaziv());
+        ps.setInt(3,id1);
+        ps.executeUpdate();
+
     }
 
-    public void izmijeniGrad(Grad bech) {
+    public void izmijeniGrad(Grad grad) throws SQLException {
+        PreparedStatement ps=conn.prepareStatement("update grad set naziv=? where id= ?;");
+        ps.setString(1,grad.getNaziv());
+        ps.setInt(2,grad.getId());
+        ps.executeUpdate();
+
+
 
     }
 }
